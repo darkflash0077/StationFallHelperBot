@@ -5,14 +5,14 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["StationFallHelperBot/StationFallHelperBot.csproj", "StationFallHelperBot/"]
+COPY ["StationFallHelperBot/StationFallHelperBot/StationFallHelperBot.csproj", "StationFallHelperBot/"]
 RUN dotnet restore "StationFallHelperBot/StationFallHelperBot.csproj"
 COPY . .
 WORKDIR "/src/StationFallHelperBot"
-RUN dotnet build "StationFallHelperBot.csproj" -c Release -o /app/build
+RUN dotnet build "StationFallHelperBot/StationFallHelperBot.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "StationFallHelperBot.csproj" -c Release -o /app/publish
+RUN dotnet publish "StationFallHelperBot/StationFallHelperBot.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
